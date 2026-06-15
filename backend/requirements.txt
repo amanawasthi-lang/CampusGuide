@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+sqlalchemy
+python-multipart
+
+langchain
+langchain-community
+
+faiss-cpu
+sentence-transformers
+
+pypdf
+
+groq
+python-dotenv
+langchain-groq
+langchain-huggingface
