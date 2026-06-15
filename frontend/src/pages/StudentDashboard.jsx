@@ -1,5 +1,7 @@
+```jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../services/api";
 
 export default function StudentDashboard() {
   const navigate = useNavigate();
@@ -21,17 +23,15 @@ export default function StudentDashboard() {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/ask?question=${encodeURIComponent(question)}`,
-        {
-          method: "POST",
-        }
-      );
+      const response = await API.post("/ask", null, {
+        params: {
+          question,
+        },
+      });
 
-      const data = await res.json();
-
-      setAnswer(data.answer);
+      setAnswer(response.data.answer || "No answer received.");
     } catch (error) {
+      console.error(error);
       setAnswer("Error connecting to AI.");
     }
 
@@ -54,7 +54,6 @@ export default function StudentDashboard() {
           margin: "0 auto",
         }}
       >
-        {/* Header */}
         <div
           style={{
             background: "rgba(255,255,255,0.15)",
@@ -85,7 +84,6 @@ export default function StudentDashboard() {
           </button>
         </div>
 
-        {/* Question Box */}
         <div
           style={{
             marginTop: "30px",
@@ -128,7 +126,6 @@ export default function StudentDashboard() {
           </button>
         </div>
 
-        {/* AI Response */}
         <div
           style={{
             marginTop: "30px",
@@ -153,3 +150,4 @@ export default function StudentDashboard() {
     </div>
   );
 }
+```
